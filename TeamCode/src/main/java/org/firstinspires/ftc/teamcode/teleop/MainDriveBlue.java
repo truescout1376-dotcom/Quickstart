@@ -3,11 +3,11 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class BaseTeleOp extends OpMode {
+public class MainDriveBlue extends OpMode {
 
     // consts
 
-    DcMotor motorFL, motorBL, motorBR, motorFR;
+
 
     @Override
     public void init() {
