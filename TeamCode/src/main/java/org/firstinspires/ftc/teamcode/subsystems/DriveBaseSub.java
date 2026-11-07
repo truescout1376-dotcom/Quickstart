@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.constants.DriveBaseConstants;
 
-public class DriveBaseSetup {
+public class DriveBaseSub {
     // TODO
 
     // this file may not be exclusively for setting up the drive base but also for running it
@@ -14,7 +14,7 @@ public class DriveBaseSetup {
     private DcMotor driveMotorFL, driveMotorFR, driveMotorBL, driveMotorBR;
 
 
-    public void driveBaseMotorInit(HardwareMap hardwareMap) {
+    public void init(HardwareMap hardwareMap) {
         // hardware mapping
         driveMotorFL = hardwareMap.get(DcMotor.class, DriveBaseConstants.DB_MOTOR_FL);
         driveMotorFR = hardwareMap.get(DcMotor.class, DriveBaseConstants.DB_MOTOR_FR);
@@ -27,9 +27,11 @@ public class DriveBaseSetup {
         driveMotorFR.setDirection(DriveBaseConstants.RIGHT_DIR);
         driveMotorBR.setDirection(DriveBaseConstants.RIGHT_DIR);
 
-
     }
 
+    public void setMotorSpeed(double speed) {
+        driveMotorFL.setPower(speed);
+    }
 
 
 }

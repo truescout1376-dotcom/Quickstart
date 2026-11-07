@@ -1,17 +1,20 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.teamcode.subsystems.DriveBaseSub;
 
 public class MainDriveBlue extends OpMode {
 
-    // consts
+    DriveBaseSub drive = new DriveBaseSub();
 
 
+
+    boolean gamepadAHeld = gamepad1.a;
 
     @Override
     public void init() {
-
+        drive.init(hardwareMap);
     }
 
     @Override
@@ -21,6 +24,6 @@ public class MainDriveBlue extends OpMode {
 
     @Override
     public void loop() {
-
+        drive.setMotorSpeed(0.1);
     }
 }

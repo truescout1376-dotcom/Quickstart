@@ -9,10 +9,10 @@ public class DriveBaseConstants {
 
     // names like "motor3" and others will be defined on the robot
 
-    public final static String DB_MOTOR_FL = "motor3";
-    public final static String DB_MOTOR_FR = "motor2";
-    public final static String DB_MOTOR_BL = "motor4";
-    public final static String DB_MOTOR_BR = "motor1";
+    public final static String DB_MOTOR_FL = "motorFL";
+    public final static String DB_MOTOR_FR = "motorFR";
+    public final static String DB_MOTOR_BL = "motorBL";
+    public final static String DB_MOTOR_BR = "motorBR";
 
 
     // directions for strafer db
