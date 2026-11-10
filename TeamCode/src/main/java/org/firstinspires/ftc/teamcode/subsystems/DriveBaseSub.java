@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.constants.DriveBaseConstants;
+import org.firstinspires.ftc.teamcode.pedro.procedures.PinpointTuner;
 import org.firstinspires.ftc.teamcode.teleop.MainDriveBlue;
 
 public class DriveBaseSub {
@@ -13,7 +14,7 @@ public class DriveBaseSub {
     // similar to 33748 Decode w/ the subsystems?
 
     private DcMotor driveMotorFL, driveMotorFR, driveMotorBL, driveMotorBR;
-
+    private PinpointTuner pinpoint;
 
     public void init(HardwareMap hardwareMap) {
         // hardware mapping
@@ -27,6 +28,8 @@ public class DriveBaseSub {
         driveMotorBL.setDirection(DriveBaseConstants.LEFT_DIR);
         driveMotorFR.setDirection(DriveBaseConstants.RIGHT_DIR);
         driveMotorBR.setDirection(DriveBaseConstants.RIGHT_DIR);
+
+        pinpoint = hardwareMap.get(PinpointTuner.class, DriveBaseConstants.DB_PINPOINT);
 
     }
 

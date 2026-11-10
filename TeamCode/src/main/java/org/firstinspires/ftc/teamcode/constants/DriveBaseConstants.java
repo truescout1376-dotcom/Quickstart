@@ -14,6 +14,7 @@ public class DriveBaseConstants {
     public final static String DB_MOTOR_BL = "motorBL";
     public final static String DB_MOTOR_BR = "motorBR";
 
+    public final static String DB_PINPOINT = "pinpoint";
 
     // directions for strafer db
     public final static DcMotor.Direction LEFT_DIR = DcMotor.Direction.FORWARD;
