@@ -11,9 +11,9 @@ public class MainDriveBlue extends OpMode {
 
 
     DriveBaseSub drive = new DriveBaseSub();
-    public float axial;
-    public float lateral;
-    public float yaw;
+    public float strafe;
+    public float forward;
+    public float rotate;
     public float motorFlPower;
     public float motorFrPower;
     public float motorBlPower;
@@ -31,17 +31,25 @@ public class MainDriveBlue extends OpMode {
     @Override
     public void loop() {
 
-        axial = -gamepad1.left_stick_y;
-        lateral = gamepad1.left_stick_x;
-        yaw = gamepad1.right_stick_x;
+        strafe = gamepad1.left_stick_y;
+        forward = -gamepad1.left_stick_x;
+        rotate = -gamepad1.right_stick_x;
 
-        dbMotorPowerVals[0] = (axial + lateral) + yaw; // FL
-        dbMotorPowerVals[1] = (axial - lateral) - yaw; // FR
-        dbMotorPowerVals[2] = (axial + lateral) - yaw; // BR
-        dbMotorPowerVals[3] = (axial - lateral) + yaw; // BL
+        dbMotorPowerVals[0] = (strafe + forward) + rotate; // FL
+        dbMotorPowerVals[1] = (strafe - forward) - rotate; // FR
+        dbMotorPowerVals[2] = (strafe + forward) - rotate; // BR
+        dbMotorPowerVals[3] = (strafe - forward) + rotate; // BL
         dbMotorPowerVals = drive.getNormalizationList(dbMotorPowerVals);
-        drive.setDbMotorPowers(dbMotorPowerVals[0], dbMotorPowerVals[1],
-                dbMotorPowerVals[2], dbMotorPowerVals[3]);
+        drive.setDbMotorPowers(dbMotorPowerVals[0], // FL
+                                -dbMotorPowerVals[1], // FR
+                                dbMotorPowerVals[2],  // BR
+                                -dbMotorPowerVals[3]); // BL
+
+        // Left: left motors ccw, right motors cw
+        // Right: left motor cw, right motor ccw
+
 
     }
 }
+
+
