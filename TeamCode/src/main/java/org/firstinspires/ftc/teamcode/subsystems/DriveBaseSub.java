@@ -1,12 +1,15 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.constants.DriveBaseConstants;
 import org.firstinspires.ftc.teamcode.pedro.procedures.PinpointTuner;
-import org.firstinspires.ftc.teamcode.teleop.MainDriveBlue;
-
+import org.firstinspires.ftc.teamcode.teleop.MainDriveBlue; // maybe not necessary
+import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
+import org.firstinspires.ftc.teamcode.pedro.procedures.PinpointTuner;
 public class DriveBaseSub {
     // TODO
 
@@ -14,7 +17,7 @@ public class DriveBaseSub {
     // similar to 33748 Decode w/ the subsystems?
 
     private DcMotor driveMotorFL, driveMotorFR, driveMotorBL, driveMotorBR;
-    private PinpointTuner pinpoint;
+    private GoBildaPinpointDriver pinpoint;
 
     public void init(HardwareMap hardwareMap) {
         // hardware mapping
@@ -29,7 +32,14 @@ public class DriveBaseSub {
         driveMotorFR.setDirection(DriveBaseConstants.RIGHT_DIR);
         driveMotorBR.setDirection(DriveBaseConstants.RIGHT_DIR);
 
-        pinpoint = hardwareMap.get(PinpointTuner.class, DriveBaseConstants.DB_PINPOINT);
+        // Brake mode
+        driveMotorFL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        driveMotorFR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        driveMotorBR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        driveMotorBL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // Pinpoint/odometry
+        pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, DriveBaseConstants.DB_PINPOINT);
 
     }
 
@@ -79,5 +89,6 @@ public class DriveBaseSub {
         }
         return maximum;
     }
+
 
 }
