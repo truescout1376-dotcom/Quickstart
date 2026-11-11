@@ -2,27 +2,19 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
+
 import org.firstinspires.ftc.teamcode.subsystems.DriveBaseSub;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp
-public class MainDriveBlue extends OpMode {
-
-
+public class MainBlue extends OpMode {
     DriveBaseSub drive = new DriveBaseSub();
     private float strafe;
     private float forward;
     private float rotate;
-    private float motorFlPower;
-    private float motorFrPower;
-    private float motorBlPower;
-    private float motorBrPower;
     private ElapsedTime matchTimer = new ElapsedTime();
     private final double timeLimit = 120.0;
-
-
     float[] dbMotorPowerVals = new float[4];
     // 0 is FL, 1 is FR, 2 is BR, 3 is BL
 
@@ -44,18 +36,8 @@ public class MainDriveBlue extends OpMode {
             forward = -gamepad1.left_stick_x;
             rotate = -gamepad1.right_stick_x;
 
-            dbMotorPowerVals[0] = (strafe + forward) + rotate; // FL
-            dbMotorPowerVals[1] = (strafe - forward) - rotate; // FR
-            dbMotorPowerVals[2] = (strafe + forward) - rotate; // BR
-            dbMotorPowerVals[3] = (strafe - forward) + rotate; // BL
-            dbMotorPowerVals = drive.getNormalizationList(dbMotorPowerVals);
-            drive.setDbMotorPowers(dbMotorPowerVals[0], // FL
-                    -dbMotorPowerVals[1], // FR
-                    dbMotorPowerVals[2],  // BR
-                    -dbMotorPowerVals[3]); // BL
-
-            // Left: left motors ccw, right motors cw
-            // Right: left motor cw, right motor ccw
+            dbMotorPowerVals = drive.setMotorListAndNormalize(strafe, forward, rotate);
+            drive.setDbMotorPowers(dbMotorPowerVals);
 
             // Timer
             telemetry.addData("Time Remaining", "%.1f sec", timeLimit - matchTimer.seconds());

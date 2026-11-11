@@ -1,15 +1,14 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.constants.DriveBaseConstants;
-import org.firstinspires.ftc.teamcode.pedro.procedures.PinpointTuner;
-import org.firstinspires.ftc.teamcode.teleop.MainDriveBlue; // maybe not necessary
+
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
-import org.firstinspires.ftc.teamcode.pedro.procedures.PinpointTuner;
+
 public class DriveBaseSub {
     // TODO
 
@@ -57,18 +56,24 @@ public class DriveBaseSub {
         driveMotorBR.setPower(-speed); // cw
     }
 
-    public void setDbMotorPowers(float FL, float FR, float BR, float BL) {
-        driveMotorFL.setPower(FL);
-        driveMotorFR.setPower(FR);
-        driveMotorBR.setPower(BR);
-        driveMotorBL.setPower(BL);
+    public void setDbMotorPowers(float[] list) {
+        driveMotorFL.setPower(list[0]);
+        driveMotorFR.setPower(list[1]);
+        driveMotorBR.setPower(list[2]);
+        driveMotorBL.setPower(list[3]);
     }
 
-    /**
-     This normalization thing is because the way we calculate the motor power is based on 4 equations
-     that can be greater than 1 or -1. Values beyond that get clipped down to 1 or -1 and screw up
-     the motion that the driver desires. Normalization proportionally puts those down to one
-     */
+
+    public float[] setMotorListAndNormalize(float strafe, float forward, float rotate) {
+        float[] powerVals = new float[4];
+        powerVals[0] = (strafe + forward) + rotate; // FL
+        powerVals[1] = -1 * ((strafe - forward) - rotate); // FR, need to flip so that rotate works properly
+        powerVals[2] = (strafe + forward) - rotate; // BR
+        powerVals[3] = -1 * ((strafe - forward) + rotate); // BL, flip for rotation
+        powerVals = this.getNormalizationList(powerVals);
+        return powerVals;
+    }
+
     public float[] getNormalizationList(float[] list) {
         float maximum = listMax(list);
         if (maximum > 1) {
